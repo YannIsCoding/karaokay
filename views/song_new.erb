@@ -1,0 +1,33 @@
+<h2>Create song</h2>
+
+<%= @karaoke %>
+<br/>
+<form action="/songs" method="post"role="form">
+ <div class="form-group">
+   <label for="song_title">Title:</label>
+   <br>
+   <input id="song_title" class="form-control" name="song[title]" type="text" value="<%= @song.title %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="song_duration">duration:</label>
+   <br>
+   <input id="song_duration" class="form-control" name="song[duration]" type="text" value="<%= @song.duration %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="song_genre">genre:</label>
+   <br>
+   <input id="song_genre" class="form-control" name="song[genre]" type="text" value="<%= @song.genre %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="song_artist">artist:</label>
+   <br>
+   <input id="song_artist" class="form-control" name="song[artist]" type="text" value="<%= @song.artist %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="song_album_name">album_name:</label>
+   <br>
+   <input id="song_album_name" class="form-control" name="song[album_name]" type="text" value="<%= @song.album_name %>" style="width=90%"/>
+ </div>
+ <input type="hidden" id="karaoke_id" name="karaoke_id" value="<%= @karaoke.id %>">
+ <button type="submit" class="btn btn-success">Submit</button>
+</form>

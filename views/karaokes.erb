@@ -3,4 +3,5 @@
 <% @karaokes.each do |karaoke| %>
   <h3> <%= karaoke.title %> </h3>
   <p> <%= karaoke.description %> </p>
+   <a href="/karaokes/<%= karaoke.id %>">Show me!</a>
 <% end %>

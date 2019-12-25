@@ -1,4 +1,10 @@
-gem 'sinatra'
+source 'https://rubygems.org'
+
 gem 'activerecord'
-gem 'sinatra-activerecord'
 gem 'pg'
+gem 'sinatra'
+gem 'sinatra-activerecord'
+
+group :development do
+  gem "tux"
+end
