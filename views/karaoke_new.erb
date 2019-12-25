@@ -1,0 +1,25 @@
+<h2>Create karaoke</h2>
+<br/>
+<form action="/karaokes" method="post"role="form">
+ <div class="form-group">
+   <label for="karaoke_title">Title:</label>
+   <br>
+   <input id="karaoke_title" class="form-control" name="karaoke[title]" type="text" value="<%= @karaoke.title %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="karaoke_description">description:</label>
+   <br>
+   <textarea id="karaoke_description" name="karaoke[description]" class="form-control" rows="10"><%= @karaoke.description %></textarea>
+ </div>
+ <div class="form-group">
+   <label for="karaoke_location">location:</label>
+   <br>
+   <input id="karaoke_location" class="form-control" name="karaoke[location]" type="text" value="<%= @karaoke.location %>" style="width=90%"/>
+ </div>
+ <div class="form-group">
+   <label for="karaoke_date">date:</label>
+   <br>
+   <input id="karaoke_date" class="form-control" name="karaoke[date]" type="date" value="<%= @karaoke.date %>" style="width=90%"/>
+ </div>
+ <button type="submit" class="btn btn-success">Submit</button>
+</form>
