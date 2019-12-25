@@ -8,4 +8,4 @@ get '/cochon' do
   erb :cochon, layout: :my_layout
 end
 
-# get '/karokay/:id'
+
