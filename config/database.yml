@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: dev_karaokay
+  pool: 2
+  username: yann
+  password: qwerty
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: prod_karaokay
+  pool: 2
+  username: your_username
+  password: your_password
