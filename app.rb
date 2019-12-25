@@ -1,6 +1,11 @@
 require 'sinatra'
 
 get '/' do
-  'welcome to karaokaaaaaaaay!'
+  erb :home, layout: :my_layout
 end
- #
+
+get '/cochon' do
+  erb :cochon, layout: :my_layout
+end
+
+
