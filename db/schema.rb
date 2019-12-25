@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_25_095902) do
+ActiveRecord::Schema.define(version: 2019_12_25_135924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,26 @@ ActiveRecord::Schema.define(version: 2019_12_25_095902) do
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "playlist_id"
+    t.index ["playlist_id"], name: "index_karaokes_on_playlist_id"
   end
 
+  create_table "playlists", force: :cascade do |t|
+    t.integer "karaoke_id"
+    t.integer "song_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "title"
+    t.integer "duration"
+    t.string "genre"
+    t.string "artist"
+    t.string "album_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "karaokes", "playlists"
 end
