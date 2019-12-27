@@ -1,0 +1,17 @@
+<h1>This is the place to add song to the playlist</h1>
+
+<form action="/karaoke/<%= params[:id] %>
+/playlist/update" method='post'>
+  <ul>
+    <% @songs.each do |song| %>
+      <li>
+        <input type="checkbox" name="song_<%=song.id%>" value=" <%= song.id %>"><%= song.title %> by <%= song.artist %>
+      </li>
+    <% end %>
+
+  </ul>
+  <input type="submit">
+</form>
+
+
+
