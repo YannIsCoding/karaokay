@@ -20,19 +20,38 @@ end
 
 post '/karaokes' do
   @karaoke = Karaoke.new(params[:karaoke])
-  playlist = Playlist.create
-  @karaoke.playlist_id = playlist.id
   if @karaoke.save
     redirect "karaokes/#{@karaoke.id}"
   else
-    erb :"karaokes/new"
+    erb :karaokes_new
   end
 end
 
 get "/karaokes/:id" do
   @karaoke = Karaoke.find(params[:id])
-  # @playlist =
-  erb :"karaoke_show"
+  erb :karaoke_show
+end
+
+get "/karaoke/:id/playlist" do
+  @karaoke = Karaoke.find(params[:id])
+  @playlists = Playlist.where(karaoke: @karaoke)
+  erb :karaoke_playlists
+end
+
+get "/karaoke/:id/playlist/new" do
+  @karaoke = Karaoke.find(params[:id])
+  @songs = Song.all
+  erb :karaoke_playlist_new
+end
+
+post "/karaoke/:id/playlist/update" do
+  # @karaoke = Karaoke.find(params[:id])
+  params.each do |key, value|
+    if key.include? 'song'
+      Playlist.create(song_id: value, karaoke_id: params[:id])
+    end
+  end
+  redirect "karaoke/#{params[:id]}/playlist"
 end
 
 get "/songs/new" do

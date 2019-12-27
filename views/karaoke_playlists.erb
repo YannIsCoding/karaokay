@@ -1,0 +1,11 @@
+<h1>This is the playlist!</h1>
+
+<ul>
+  <% @playlists.each do |playlist| %>
+    <li>
+      <%= playlist.song.title %> by <%= playlist.song.artist %>
+    </li>
+  <% end %>
+</ul>
+
+<a href="/karaoke/<%= @karaoke.id %>/playlist/new">Add a song to the karaokay party!</a>
