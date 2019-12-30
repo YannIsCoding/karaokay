@@ -1,13 +1,17 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-require_relative 'models/karaoke'
-require_relative 'models/song'
-require_relative 'models/playlist'
-require_relative 'models/user'
+require_relative 'app/models/karaoke'
+require_relative 'app/models/song'
+require_relative 'app/models/playlist'
+require_relative 'app/models/user'
+require_relative 'app/module/user_session'
+
+helpers UserSession
 
 enable :sessions
 
 get '/' do
+  @user = current_user
   erb :home, layout: :my_layout
 end
 
@@ -30,8 +34,8 @@ get '/session/login' do
 end
 
 post '/session' do
-  @user = User.find_by(email: params[:user][:email], password: params[:user][:password])
-  if @user
+  @user = User.find_by(email: params[:user][:email])
+  if @user && @user.authenticate(params[:user][:password])
     session[:user_id] = @user.id
     redirect '/'
   else
