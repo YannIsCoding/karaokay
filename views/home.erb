@@ -4,3 +4,12 @@
 
 
 <a href="/karaokes/new">You go create karaoke!</a>
+
+<a href="/karaokes">You go look at karaoke!</a>
+
+<% if session[:user_id] %>
+  <p> Good job, you're sign in!</p>
+<% else %>
+  <a href="/registration/signup">Join karaokay!</a>
+  <a href="/session/login">login!</a>
+<% end %>

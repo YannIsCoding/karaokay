@@ -3,49 +3,84 @@ require 'sinatra/activerecord'
 require_relative 'models/karaoke'
 require_relative 'models/song'
 require_relative 'models/playlist'
+require_relative 'models/user'
+
+enable :sessions
 
 get '/' do
   erb :home, layout: :my_layout
 end
 
+get '/registration/signup' do
+  erb :'registration/signup'
+end
+
+post '/registration' do
+  @user = User.new(username: params[:user][:username], email: params[:user][:email], password: params[:user][:password])
+  if @user.save!
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    erb :'registration/signup'
+  end
+end
+
+get '/session/login' do
+  erb :'session/login'
+end
+
+post '/session' do
+  @user = User.find_by(email: params[:user][:email], password: params[:user][:password])
+  if @user
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    erb :'session/login'
+  end
+end
+
+get '/session/destroy' do
+  session.clear
+  redirect '/'
+end
+
 get '/karaokes' do
   @karaokes = Karaoke.all
-  erb :karaokes, layout: :my_layout
+  erb :'karaoke/index', layout: :my_layout
 end
 
 get '/karaokes/new' do
   @karaoke = Karaoke.new
-  erb :karaoke_new, layout: :my_layout
+  erb :'karaoke/new', layout: :my_layout
 end
 
 post '/karaokes' do
   @karaoke = Karaoke.new(params[:karaoke])
-  if @karaoke.save
+  if @karaoke.save!
     redirect "karaokes/#{@karaoke.id}"
   else
-    erb :karaokes_new
+    erb :'karaoke/new', layout: :my_layout
   end
 end
 
 get "/karaokes/:id" do
   @karaoke = Karaoke.find(params[:id])
-  erb :karaoke_show
+  erb :'karaoke/show', layout: :my_layout
 end
 
 get "/karaoke/:id/playlist" do
   @karaoke = Karaoke.find(params[:id])
   @playlists = Playlist.where(karaoke: @karaoke)
-  erb :karaoke_playlists
+  erb :karaoke_playlists, layout: :my_layout
 end
 
 get "/karaoke/:id/playlist/new" do
   @karaoke = Karaoke.find(params[:id])
   @songs = Song.all
-  erb :karaoke_playlist_new
+  erb :karaoke_playlist_new, layout: :my_layout
 end
 
 post "/karaoke/:id/playlist/update" do
-  # @karaoke = Karaoke.find(params[:id])
   params.each do |key, value|
     if key.include? 'song'
       Playlist.create(song_id: value, karaoke_id: params[:id])
@@ -65,11 +100,11 @@ post "/songs" do
   if @song.save!
     redirect "karaokes/#{params[:karaoke_id]}"
   else
-    erb :"songs/new"
+    erb :"songs/new", layout: :my_layout
   end
 end
 
 get "/songs/:id" do
   @song = Song.find(params[:id])
-  erb :song_show
+  erb :song_show, layout: :my_layout
 end

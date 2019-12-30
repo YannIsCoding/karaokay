@@ -2,7 +2,12 @@
   <head>
   <link href="<%= url('css/style.css') %>" rel="stylesheet" type="text/css" />  </head>
   <body>
-    This is in the boutiful layout
+    <% if session[:user_id]  %>
+      <p>Good job! You're logged in!</p> <br>
+      <a href="/session/destroy">Wanna logout?!</a>
+    <% else %>
+      <a href="/registration/signup">Join karaokay!</a>
+    <% end %>
     <%= yield %>
   </body>
 </html>
