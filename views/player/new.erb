@@ -1,0 +1,16 @@
+<h1>This the place to add player!</h1>
+
+<p>Add a bunch of super chill player for the karaoke:</p> <%= @karaoke.title %>
+
+<form action="/karaoke/<%= params[:id] %>
+/new_players" method='post'>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <input type="checkbox" name="user_<%=user.id%>" value=" <%= user.id %>"><%= user.username %> email: <%= user.email %>
+      </li>
+    <% end %>
+
+  </ul>
+  <input type="submit">
+</form>

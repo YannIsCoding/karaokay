@@ -8,6 +8,7 @@
     <% else %>
       <a href="/registration/signup">Join karaokay!</a>
     <% end %>
+    <%= current_user&.username %>
     <%= yield %>
   </body>
 </html>
