@@ -1,4 +1,29 @@
 <h1> <%= @karaoke.title %> </h1>
 <p> <%= @karaoke.description %> </p>
 
-<a href="/karaoke/<%= @karaoke.id %>/playlist">Check out the play list!</a>
+<h3>Song list:</h3>
+<ul>
+  <% @playlists.each do |playlist| %>
+    <li>
+      <%= playlist.song.title %> by <%= playlist.song.artist %> Number of votes: <%= playlist.votes.count %>
+      <a href="/playlist/<%= playlist.id %>/vote">Vote for dat song!</a>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Player list</h3>
+
+<ul>
+  <% @players.each do |player| %>
+    <li>
+      <%= player.user.username %>
+    </li>
+  <% end %>
+</ul>
+
+<a href="/karaoke/<%= @karaoke.id %>/playlist/new">Add a song to the karaokay party!</a>
+
+<% if current_user == @karaoke.user %>
+  <a href="/karaoke/<%= @karaoke.id %>/new_players">Invite participant to the party!</a>
+<% end %>
+
