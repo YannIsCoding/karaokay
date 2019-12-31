@@ -140,10 +140,11 @@ end
 get '/playlist/:id/vote' do
   redirect '/session/login' unless current_user
   playlist = Playlist.find(params[:id])
-  if (vote = Vote.find_by(playlist: playlist, player_idplayer: current_user))
+  player = Player.find_by(karaoke: playlist.karaoke, user: current_user)
+  if (vote = Vote.find_by(playlist: playlist, player: player))
     vote.destroy
   else
-    Vote.create(player: current_user, playlist: playlist)
+    Vote.create(player: player, playlist: playlist)
   end
   redirect "karaokes/#{playlist.karaoke.id}"
 end
